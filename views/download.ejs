@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<div class="max-w-7xl mx-auto py-8 px-4">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Pusat Unduhan Aplikasi & Media</h2>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <% apps.forEach(app => { %>
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-600 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800"><%= app.title %></h3>
+                    <p class="text-sm text-gray-500">Versi: <%= app.version %></p>
+                </div>
+                <a href="<%= app.fileUrl %>" download="<%= app.filename %>" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+    Unduh Aplikasi
+</a>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
