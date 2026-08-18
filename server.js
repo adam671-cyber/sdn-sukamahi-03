@@ -15,10 +15,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.urlencoded({ extended: true }));
 
-// 3. Membuat folder public/uploads otomatis jika belum ada
-const uploadDir = path.join(__dirname, 'public/uploads');
-if (!fs.existsSync(uploadDir)) {
+// 3. Membuat folder /tmp/uploads untuk lingkungan Serverless (Vercel)
+const uploadDir = process.env.VERCEL ? '/tmp/uploads' : path.join(__dirname, 'public/uploads');
+try {
+  if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.log('Upload dir check:', err);
 }
 
 // 4. Konfigurasi Multer untuk Unggah File (PDF, Docx, Excel, APK, Gambar)
